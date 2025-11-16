@@ -179,7 +179,7 @@ while (true) {
 
     case 5:
         echo "Program selesai!\n";
-    break;
+    exit;
     
 
 
