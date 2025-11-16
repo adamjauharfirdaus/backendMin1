@@ -78,7 +78,7 @@
 
 $dataMahasiswa = [];
 
-function input($pesan) {
+function ketik($pesan) {
     echo $pesan;
     return trim(fgets(STDIN));
 }
@@ -97,9 +97,10 @@ while (true) {
     // ============================
     // CREATE
     // ============================
-    if ($pilihan == 1) {
-        $nama = input("Masukkan nama mahasiswa: ");
-        $nilai = input("Masukkan nilai mahasiswa: ");
+    switch ($pilihan) {
+        case 1:
+        $nama = ketik("Masukkan nama mahasiswa: ");
+        $nilai = ketik("Masukkan nilai mahasiswa: ");
 
         $dataMahasiswa[] = [
             "nama" => $nama,
@@ -107,59 +108,61 @@ while (true) {
         ];
 
         echo "Data berhasil ditambahkan!\n";
-    }
+    break;
 
 
     // READ
-
-    else if ($pilihan == 2) {
+     case 2: 
         echo "\n=== DATA MAHASISWA ===\n";
 
         if (count($dataMahasiswa) == 0) {
             echo "Data masih kosong!\n";
         } else {
-            foreach ($dataMahasiswa as $i => $mhs) {
-                echo ($i + 1) . ". Nama: " . $mhs["nama"] . 
-                     " | Nilai: " . $mhs["nilai"] . "\n";
+            for ($i = 0; $i < count($dataMahasiswa); $i++) {
+                echo "data ke- ". ($i + 1) . " Nama: " . $dataMahasiswa[$i]["nama"]. ", Nilai: " . $dataMahasiswa[$i]["nilai"] . "\n";
             }
+            // foreach ($dataMahasiswa as $i => $mhs) {
+            //     echo "data ke- "($i + 1) . ". Nama: " . $mhs["nama"] . 
+            //          " | Nilai: " . $mhs["nilai"] . "\n";
+            // }
         }
-    }
+    break;
 
 
     // UPDATE
 
-    else if ($pilihan == 3) {
+    case 3:
         if (count($dataMahasiswa) == 0) {
             echo "Tidak ada data untuk diubah!\n";
             continue;
         }
 
-        $index = input("Pilih nomor data yang ingin diubah: ") - 1;
+        $index = ketik("Pilih nomor data yang ingin diubah: ") - 1;
 
         if (!isset($dataMahasiswa[$index])) {
             echo "Nomor tidak valid!\n";
             continue;
         }
 
-        $namaBaru = input("Masukkan nama baru: ");
-        $nilaiBaru = input("Masukkan nilai baru: ");
+        $namaBaru = ketik("Masukkan nama baru: ");
+        $nilaiBaru = ketik("Masukkan nilai baru: ");
 
         $dataMahasiswa[$index]["nama"] = $namaBaru;
-        $dataMahasiswa[$index]["nilai"] = $nilaiBaru;
+        $dataMahasiswa[$index]["n00ilai"] = $nilaiBaru;
 
         echo "Data berhasil diupdate!\n";
-    }
+    break;
 
  
     // DELETE
 
-    else if ($pilihan == 4) {
+    case 4:
         if (count($dataMahasiswa) == 0) {
             echo "Tidak ada data untuk dihapus!\n";
             continue;
         }
 
-        $index = input("Pilih nomor data yang ingin dihapus: ") - 1;
+        $index = ketik("Pilih nomor data yang ingin dihapus: ") - 1;
 
         if (!isset($dataMahasiswa[$index])) {
             echo "Nomor tidak valid!\n";
@@ -169,25 +172,25 @@ while (true) {
         array_splice($dataMahasiswa, $index, 1);
 
         echo "Data berhasil dihapus!\n";
-    }
+    break;
 
 
     // EXIT
 
-    else if ($pilihan == 5) {
+    case 5:
         echo "Program selesai!\n";
-        break;
-    }
+    break;
+    
 
 
     // INPUT SALAH
 
-    else {
+    default:
         echo "Pilihan tidak valid!\n";
-    }
+    break;
 }
 
-
+}
 
 
 
